@@ -1,0 +1,12 @@
+# Binaries
+*.exe
+idp
+idp-cli
+
+# IDEs
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc

@@ -1,0 +1,4 @@
+idp
+*.exe
+go.mod
+main.go
