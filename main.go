@@ -59,6 +59,7 @@ func deploy() {
 	fmt.Println("✅ Docker image built successfully")
 	fmt.Print(string(buildOutput))
 
+	/*
 	fmt.Println("🧹 Cleaning up old containers...")
 	_ = exec.Command("docker", "rm", "-f", "idp-container").Run()
 	fmt.Println("✨ Previous container removed (if any)")
@@ -77,4 +78,32 @@ func deploy() {
 	fmt.Println("✅ Container started successfully")
 	fmt.Println("🌐 App running at: http://localhost:5000")
 	fmt.Print(string(runOutput))
+	*/
+
+	fmt.Println("📦 Loading image into Minikube...")
+	loadCmd := exec.Command("C:\\Program Files\\Kubernetes\\Minikube\\minikube.exe", "image", "load", "idp-app:latest")
+	loadOutput, loadErr := loadCmd.CombinedOutput()
+
+	if loadErr != nil {
+		fmt.Println("❌ Failed to load image into Minikube")
+		fmt.Println(loadErr)
+		fmt.Print(string(loadOutput))
+		return
+	}
+	fmt.Print(string(loadOutput)) // optionally print if it outputs anything
+
+	fmt.Println("☸️ Deploying to Kubernetes...")
+	deployCmd := exec.Command("kubectl", "apply", "-f", "deployment.yaml")
+	deployOutput, deployErr := deployCmd.CombinedOutput()
+
+	if deployErr != nil {
+		fmt.Println("❌ Failed to deploy to Kubernetes")
+		fmt.Println(deployErr)
+		fmt.Print(string(deployOutput))
+		return
+	}
+	fmt.Print(string(deployOutput))
+
+	fmt.Println("✅ Deployment to Kubernetes successful")
+	fmt.Println("🌐 Access app using: minikube service idp-service")
 }
