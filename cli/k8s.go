@@ -5,11 +5,12 @@ import (
 )
 
 // loadImageToMinikube pushes the local Docker image into the Minikube environment
-func loadImageToMinikube() bool {
+func loadImageToMinikube(cfg *Config) bool {
 	LogInfo("Loading image into Minikube...")
 	
 	// Use shell execution (cmd /C) to handle minikube commands properly
-	output, err := runCommandWrapper("minikube image load idp-app:latest")
+	loadCmd := fmt.Sprintf("minikube image load %s:%s", cfg.ImageName, cfg.Tag)
+	output, err := runCommandWrapper(loadCmd)
 	if err != nil {
 		LogError("Failed to load image into Minikube", err, output)
 		return false
@@ -22,7 +23,7 @@ func loadImageToMinikube() bool {
 }
 
 // deployToKubernetes runs the kubectl apply command using the deployment yaml
-func deployToKubernetes() bool {
+func deployToKubernetes(cfg *Config) bool {
 	LogInfo("Deploying to Kubernetes...")
 	
 	// Use shell execution (cmd /C) to handle kubectl commands properly

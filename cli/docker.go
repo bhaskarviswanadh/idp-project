@@ -20,12 +20,13 @@ func checkDocker() bool {
 }
 
 // buildDockerImage builds the Docker image from a specific directory context
-func buildDockerImage() bool {
+func buildDockerImage(cfg *Config) bool {
 	LogInfo("Starting Docker build...")
-	LogInfo("Building Docker image idp-app...")
+	LogInfo("Building Docker image " + cfg.ImageName + ":" + cfg.Tag + "...")
 
-	// Requirement: docker build -t idp-app ./sample-app
-	output, err := runCommandWrapper("docker build -t idp-app ../sample-app")
+	// Requirement: docker build -t <image_name>:<tag> ../<app_path>
+	dockerCmd := fmt.Sprintf("docker build -t %s:%s ../%s", cfg.ImageName, cfg.Tag, cfg.AppPath)
+	output, err := runCommandWrapper(dockerCmd)
 	if err != nil {
 		LogError("Docker build failed", err, output)
 		return false

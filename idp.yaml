@@ -1,0 +1,6 @@
+app_name: "idp-app"
+app_path: "sample-app"
+image_name: "idp-app"
+tag: "latest"
+port: 5000
+replicas: 2

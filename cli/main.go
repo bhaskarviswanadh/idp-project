@@ -29,23 +29,28 @@ func main() {
 func deploy() {
 	LogInfo("Starting deployment pipeline...")
 
+	cfg, ok := loadConfig()
+	if !ok {
+		return
+	}
+
 	// 1. Check if Docker is installed
 	if !checkDocker() {
 		return
 	}
 
 	// 2. Build Docker Image
-	if !buildDockerImage() {
+	if !buildDockerImage(cfg) {
 		return
 	}
 
 	// 3. Load image into Minikube
-	if !loadImageToMinikube() {
+	if !loadImageToMinikube(cfg) {
 		return
 	}
 
 	// 4. Deploy to Kubernetes
-	if !deployToKubernetes() {
+	if !deployToKubernetes(cfg) {
 		return
 	}
 
