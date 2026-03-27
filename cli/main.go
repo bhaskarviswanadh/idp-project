@@ -55,4 +55,7 @@ func deploy() {
 	}
 
 	LogSuccess("Deployment pipeline completed successfully!")
+
+	// 5. Open service in browser
+	openServiceInBrowser(cfg)
 }
