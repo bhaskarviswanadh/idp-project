@@ -15,6 +15,13 @@ This project provides a CLI tool (`idp`) that automates the complete application
 
 ---
 
+## 🏛️ Architecture Diagram
+
+<p align="center">
+  <img src="<img width="2816" height="1536" alt="IDP_CLI_Architecture diagram" src="https://github.com/user-attachments/assets/dc23d1c3-88c5-4062-88a9-1379cd92a8e3" />
+" alt="IDP Architecture" width="800"/>
+</p>
+
 ## ⚡ Features
 
 * 🔹 One-command deployment (`idp deploy`)
